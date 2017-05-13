@@ -1,30 +1,44 @@
 angular.module('starter.controllers', [])
 
-.controller('MenuController', function($scope, $ionicModal, $timeout) {
+.controller('MenuController', function() {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
   var vm = this;
   console.log('app controller');
 })
 
-.controller('HomeController', function($scope) {
+.controller('HomeController', function($interval, AppService, $cordovaGeolocation, $ionicPlatform) {
+
   var vm = this;
-  vm.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+  vm.history = [{
+    lat: 1234,
+    long: 1234
+  }];
+
+  $ionicPlatform.ready(function() {
+
+    //$interval(calculatePosition, 5000);
+    calculatePosition();
+  });
+
+  function calculatePosition() {
+    $cordovaGeolocation.getCurrentPosition({
+      enableHighAccuracy: true
+    })
+    .then(function (position) {
+        vm.history.push({
+          lat: position.coords.latitude,
+          long: position.coords.longitude
+        });
+        //how to send to mobiles??? push notifications maybe?
+      }, function(err) {
+        // error
+      });
+  }
+
+  //AppService.getSettings();
 })
 
-.controller('SettingsController', function($scope) {
+.controller('SettingsController', function() {
   var vm = this;
 
 });
