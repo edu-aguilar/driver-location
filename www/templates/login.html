@@ -1,0 +1,26 @@
+<ion-view view-title="Login">
+  <ion-content>
+
+    <form name="loginForm">
+
+      <h2>Selecciona rol</h2>
+      <ion-list>
+        <ion-radio ng-model="vm.role" ng-value="'driver'">Conductor</ion-radio>
+        <ion-radio ng-model="vm.role" ng-value="'listener'">Oyente</ion-radio>
+      </ion-list>
+
+      <h2>Elige canal</h2>
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" ng-model="vm.channel" required>
+        </label>
+      </div>
+
+      <button ng-click="vm.goLogin()" ng-disabled="!loginForm.$valid  || !vm.role" class="button button-block button-positive">
+        Aceptar
+      </button>
+
+    </form>
+
+  </ion-content>
+</ion-view>

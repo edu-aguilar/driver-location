@@ -29,12 +29,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'MenuController as vm'
   })
 
-  .state('app.settings', {
-    url: '/settings',
+  .state('app.login', {
+    url: '/login',
     views: {
       'menuContent': {
-        templateUrl: 'templates/settings.html',
-        controller: 'SettingsController as vm'
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController as vm'
       }
     }
   })
@@ -49,5 +49,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/login');
 });

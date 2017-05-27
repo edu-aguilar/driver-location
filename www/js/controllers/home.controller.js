@@ -10,6 +10,8 @@ function HomeController($scope, $interval, FirebaseService, $cordovaGeolocation,
     long: 1234
   }];
 
+  //FirebaseService.test();
+
   $ionicPlatform.ready(function() {
 
     //$interval(calculatePosition, 5000);
