@@ -11,6 +11,6 @@ function LoginController($state) {
   vm.goLogin = goLogin;
 
   function goLogin() {
-    $state.go('app.home');
+    $state.go('app.' + vm.role + 'Home');
   }
 }

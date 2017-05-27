@@ -39,15 +39,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-    .state('app.home', {
-      url: '/home',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/home.html',
-          controller: 'HomeController as vm'
-        }
+  .state('app.driverHome', {
+    url: '/driver',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/driverHome.html',
+        controller: 'DriverHomeController as vm'
       }
-    });
+    }
+  })
+
+  .state('app.listenerHome', {
+    url: '/listener',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/listenerHome.html',
+        controller: 'ListenerHomeController as vm'
+      }
+    }
+  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/login');
 });

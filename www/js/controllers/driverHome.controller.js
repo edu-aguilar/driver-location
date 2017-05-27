@@ -1,8 +1,8 @@
 
 angular.module('starter.controllers')
-        .controller('HomeController', HomeController);
+        .controller('DriverHomeController', DriverHomeController);
 
-function HomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, $firebaseArray) {
+function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, $firebaseArray) {
 
   var vm = this;
   vm.history = [{
