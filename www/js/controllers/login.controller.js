@@ -11,6 +11,6 @@ function LoginController($state) {
   vm.goLogin = goLogin;
 
   function goLogin() {
-    $state.go('app.' + vm.role + 'Home');
+    $state.go('app.' + vm.role + 'Home', {channel: vm.channel});
   }
 }

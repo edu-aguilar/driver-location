@@ -41,6 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.driverHome', {
     url: '/driver',
+    params: { channel: null },
     views: {
       'menuContent': {
         templateUrl: 'templates/driverHome.html',
@@ -51,6 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.listenerHome', {
     url: '/listener',
+    params: { channel: null },
     views: {
       'menuContent': {
         templateUrl: 'templates/listenerHome.html',

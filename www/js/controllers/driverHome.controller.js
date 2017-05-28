@@ -2,7 +2,7 @@
 angular.module('starter.controllers')
         .controller('DriverHomeController', DriverHomeController);
 
-function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, $firebaseArray) {
+function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, $firebaseArray, $stateParams) {
 
   var vm = this;
   vm.history = [{
@@ -10,6 +10,7 @@ function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeoloc
     long: 1234
   }];
 
+  console.log($stateParams.channel);
   //FirebaseService.test();
 
   $ionicPlatform.ready(function() {
