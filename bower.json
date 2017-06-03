@@ -8,5 +8,8 @@
     "ngCordova": "^0.1.27-alpha",
     "angularfire": "^2.3.0",
     "firebase": "^4.0.0"
+  },
+  "resolutions": {
+    "firebase": "3.x.x"
   }
 }
