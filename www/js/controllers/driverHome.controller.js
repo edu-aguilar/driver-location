@@ -10,6 +10,13 @@ function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeoloc
     long: 1234
   }];
 
+  /*
+    TODO's
+    1- obtener de firebase el array de tokens del canal obtenido.
+    2- establecer interval para lanzar callback cada X mins.
+    3- en ese callback, obtener GPS y enviar los datos por $HTTP a cada uno de los tokens obtenidos
+  */
+
   console.log($stateParams.channel);
   //FirebaseService.test();
 
