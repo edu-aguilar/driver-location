@@ -4,18 +4,18 @@ angular.module('starter.services')
 function FirebaseService($firebaseObject) {
 
   var config = {
-    apiKey: "credentials here",
-    authDomain: "credentials here",
-    databaseURL: "credentials here",
-    projectId: "credentials here",
-    storageBucket: "credentials here",
-    messagingSenderId: "credentials here"
-  };
+  apiKey: "XXXXXX",
+  authDomain: "XXXXXX",
+  databaseURL: "XXXXXX",
+  projectId: "XXXXXX",
+  storageBucket: "XXXXXX",
+  messagingSenderId: "XXXXXX4"
+};
 
   return {
     connect: connect,
     getCollection: getCollection,
-    test: test
+    getCollectionFromChannel: getCollectionFromChannel
   }
 
   function connect() {
@@ -27,22 +27,14 @@ function FirebaseService($firebaseObject) {
     return $firebaseArray(ref);
   }
 
-  function test() {
+  function getCollectionFromChannel(channel) {
 
     var fireRef = firebase.initializeApp(config);
-    var ref = firebase.database().ref('madridJerez');
+    var ref = firebase.database().ref(channel);
 
      var obj = $firebaseObject(ref);
 
-     // to take an action after the data loads, use the $loaded() promise
-     obj.$loaded().then(function() {
-        console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
-
-       // To iterate the key/value pairs of the object, use angular.forEach()
-       angular.forEach(obj, function(value, key) {
-          console.log(key, value);
-       });
-     });
+     return obj.$loaded();
   }
 
 }
