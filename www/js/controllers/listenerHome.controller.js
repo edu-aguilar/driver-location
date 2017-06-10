@@ -27,7 +27,7 @@ function ListenerHomeController($stateParams, pushService, FirebaseService) {
       .then(getCollectionFromChannelSuccess);
   }
 
-  function getCollectionFromChannelSuccess (obj) {
+  function getCollectionFromChannelSuccess(obj) {
     registeredTokens = obj.hasOwnProperty('pushTo') ? obj.pushTo : null;
     var exists = _checkIfTokenExists(FCMToken, registeredTokens);
     if (exists) {
