@@ -1,5 +1,10 @@
 <ion-view view-title="Home" id="listener-home">
   <ion-content>
-    listenerHome
+
+    <div class="info">
+      <span ng-if="vm.status">{{vm.status}}</span>
+      <ion-spinner ng-if="!vm.status"></ion-spinner>
+    </div>
+
   </ion-content>
 </ion-view>

@@ -4,13 +4,13 @@ angular.module('starter.services')
 function FirebaseService($firebaseObject) {
 
   var config = {
-  apiKey: "XXXXXX",
-  authDomain: "XXXXXX",
-  databaseURL: "XXXXXX",
-  projectId: "XXXXXX",
-  storageBucket: "XXXXXX",
-  messagingSenderId: "XXXXXX4"
-};
+    apiKey: "AIzaSyC1I22MAzlPlnHbNL66cwkzAHTV4eC4zCk",
+    authDomain: "driver-location-1fae9.firebaseapp.com",
+    databaseURL: "https://driver-location-1fae9.firebaseio.com",
+    projectId: "driver-location-1fae9",
+    storageBucket: "driver-location-1fae9.appspot.com",
+    messagingSenderId: "932275972184"
+  };
 
   return {
     connect: connect,
@@ -31,10 +31,9 @@ function FirebaseService($firebaseObject) {
 
     var fireRef = firebase.initializeApp(config);
     var ref = firebase.database().ref(channel);
+    var obj = $firebaseObject(ref);
 
-     var obj = $firebaseObject(ref);
-
-     return obj.$loaded();
+    return obj.$loaded();
   }
 
 }
