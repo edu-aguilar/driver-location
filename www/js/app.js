@@ -42,7 +42,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.driverHome', {
     url: '/driver',
     cache: false,
-    params: { channel: null },
+    params: { channel: null, time: null },
     views: {
       'menuContent': {
         templateUrl: 'templates/driverHome.html',

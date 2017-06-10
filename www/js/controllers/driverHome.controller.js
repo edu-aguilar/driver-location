@@ -5,6 +5,7 @@ angular.module('starter.controllers')
 function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, pushService, $stateParams) {
 
   var vm = this;
+  var time = $stateParams.time * 60000 || 60000;
   vm.registeredTokens = null;
   vm.history = [];
 
@@ -24,13 +25,11 @@ function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeoloc
   }
 
   function setIntervalActions() {
-    //$interval(calculatePosition, 5000);
-    calculatePosition();
+    $interval(calculatePosition, time);
   }
 
 
   function calculatePosition() {
-
     $cordovaGeolocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 10000
