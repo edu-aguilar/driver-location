@@ -2,13 +2,11 @@
 angular.module('starter.controllers')
         .controller('DriverHomeController', DriverHomeController);
 
-function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, $firebaseArray, $stateParams) {
+function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeolocation, $ionicPlatform, pushService, $stateParams) {
 
   var vm = this;
-  vm.history = [{
-    lat: 1234,
-    long: 1234
-  }];
+  vm.registeredTokens = null;
+  vm.history = [];
 
   /*
     TODO's
@@ -17,28 +15,42 @@ function DriverHomeController($scope, $interval, FirebaseService, $cordovaGeoloc
     3- en ese callback, obtener GPS y enviar los datos por $HTTP a cada uno de los tokens obtenidos
   */
 
-  console.log($stateParams.channel);
-  //FirebaseService.test();
+  FirebaseService.getCollectionFromChannel($stateParams.channel)
+    .then(getCollectionFromChannelSuccess);
 
-  $ionicPlatform.ready(function() {
+  function getCollectionFromChannelSuccess(obj) {
+    vm.registeredTokens = obj.hasOwnProperty('pushTo') ? obj.pushTo : null;
+    $ionicPlatform.ready(setIntervalActions);
+  }
 
+  function setIntervalActions() {
     //$interval(calculatePosition, 5000);
     calculatePosition();
-  });
+  }
+
 
   function calculatePosition() {
+
     $cordovaGeolocation.getCurrentPosition({
-      enableHighAccuracy: true
+      enableHighAccuracy: true,
+      timeout: 10000
     })
-    .then(function (position) {
-        vm.history.push({
-          lat: position.coords.latitude,
-          long: position.coords.longitude
-        });
-        //how to send to mobiles??? push notifications maybe?
-      }, function(err) {
-        // error
-      });
+    .then(sendPushNotifications, calculatePositionError);
+
+    function calculatePositionError() {
+      alert('error getting location');
+    }
+  }
+
+  function sendPushNotifications(position) {
+    vm.history.push({
+      lat: position.coords.latitude,
+      long: position.coords.longitude
+    });
+    var l = vm.registeredTokens.length;
+    for (var i = 0; i < l; i++) {
+      pushService.sendPush(position, vm.registeredTokens[i]);
+    }
   }
 
 }
