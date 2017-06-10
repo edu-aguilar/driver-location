@@ -13,7 +13,8 @@ function PushService($q, $http, $ionicPlatform) {
   var pushInstance = null;
 
   return {
-    registerDeviceToFCM: registerDeviceToFCM
+    registerDeviceToFCM: registerDeviceToFCM,
+    sendPush: sendPush
   }
 
   function registerDeviceToFCM() {
@@ -61,5 +62,34 @@ function PushService($q, $http, $ionicPlatform) {
     alert('llegó push'); //siempre saludaba
   }
 
+  function sendPush(position, token) {
+    //send push to http FCM
+    var body = {
+      "to": token,
+      "notification":{
+        "title":"[add title]",
+        "body":"[add your message]"},
+        "priority":"high"
+      }
+    $http({
+        method: 'POST',
+        dataType: 'jsonp',
+        url: 'https://fcm.googleapis.com/fcm/send',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'key=XXXXX'
+        },
+        data: JSON.stringify(body)
+    }).then(registerDeviceToCamPushSuccess)
+    .catch(registerDeviceToCamPushError);
+
+    function registerDeviceToCamPushSuccess(response) {
+      console.log('push sent');
+    }
+
+    function registerDeviceToCamPushError(error) {
+      alert('error enviando push');
+    }
+  }
 
 }
