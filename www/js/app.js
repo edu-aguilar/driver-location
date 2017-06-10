@@ -41,6 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.driverHome', {
     url: '/driver',
+    cache: false,
     params: { channel: null },
     views: {
       'menuContent': {
@@ -52,6 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('app.listenerHome', {
     url: '/listener',
+    cache: false,
     params: { channel: null },
     views: {
       'menuContent': {
