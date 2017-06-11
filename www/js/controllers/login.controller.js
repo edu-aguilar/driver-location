@@ -7,10 +7,11 @@ function LoginController($state) {
 
   vm.role = null;
   vm.channel = null;
+  vm.time = null;
 
   vm.goLogin = goLogin;
 
   function goLogin() {
-    $state.go('app.' + vm.role + 'Home', {channel: vm.channel});
+    $state.go('app.' + vm.role + 'Home', {channel: vm.channel, time: vm.time});
   }
 }
