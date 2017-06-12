@@ -2,9 +2,20 @@
 angular.module('starter.controllers')
         .controller('ListenerHomeController', ListenerHomeController);
 
-function ListenerHomeController($stateParams, pushService, FirebaseService) {
+function ListenerHomeController($stateParams, pushService, FirebaseService, $scope) {
   var vm = this;
   vm.status = null;
+  vm.openMap = openMap;
+  vm.historical = [];
+
+  // listen for the event in the relevant $scope
+  $scope.$on('_notificationReceived', function (event, data) {
+    vm.historical.push({
+      hour: new Date(),
+      latitude: data.position.latitude,
+      longitude: data.position.longitude
+    })
+  });
 
   var channel = $stateParams.channel;
   var FCMToken = null;
@@ -17,7 +28,7 @@ function ListenerHomeController($stateParams, pushService, FirebaseService) {
     3- comprobar si existe el token obtenido en el array de canales.
     4- si no existe, pushearlo.
   */
-  
+
   pushService.registerDeviceToFCM()
     .then(registerDeviceToFCMSuccess);
 
@@ -55,6 +66,10 @@ function ListenerHomeController($stateParams, pushService, FirebaseService) {
     }, function(error) {
       console.log("Error:", error);
     });
+  }
+
+  function openMap(notification) {
+    window.location = 'geo:' + notification.latitude + ',' + notification.longitude;
   }
 
 }
