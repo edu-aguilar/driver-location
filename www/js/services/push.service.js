@@ -4,7 +4,7 @@ angular
     .module('starter.services')
     .service('pushService', PushService);
 
-function PushService($q, $http, $ionicPlatform) {
+function PushService($q, $http, $ionicPlatform, $rootScope, $timeout) {
 
   var FCMToken = null;
   var pushPluginConfig = {
@@ -39,7 +39,6 @@ function PushService($q, $http, $ionicPlatform) {
         function onRegistration(data) {
           FCMToken = data.registrationId;
         	console.log(FCMToken);
-          alert('TOKEN: ' + FCMToken);
           _d.resolve(FCMToken);
         }
 
@@ -59,18 +58,39 @@ function PushService($q, $http, $ionicPlatform) {
 
   function _onNotification(data) {
     console.log(data);
-    alert('llegó push'); //siempre saludaba
+    var lat = data.additionalData.position.latitude;
+    var lon = data.additionalData.position.longitude;
+    $rootScope.$broadcast('_notificationReceived', {
+      position: data.additionalData.position
+    });
+
+    $timeout(function() {
+      window.location = 'geo:' + lat + ',' + lon;
+    }, 2000);
+
+    // if(isAndroid) {
+    //   window.location = 'geo:50.060915,19.948066';
+    // }
+    // else {
+    //   window.location = 'http://maps.apple.com/?ll=50.060915,19.948066';
+    // }
   }
 
   function sendPush(position, token) {
     //send push to http FCM
+    var _position = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    }
     var body = {
-      "to": token,
-      "notification":{
-        "title":"[add title]",
-        "body":"[add your message]"},
-        "priority":"high"
-      }
+    	"to": token,
+        "data" : {
+            "title": "Nueva ubicacion",
+            "body": _position.latitude + ", " + _position.longitude,
+            "notId": 10,
+            "position": JSON.stringify(_position)
+        }
+    }
     $http({
         method: 'POST',
         dataType: 'jsonp',
